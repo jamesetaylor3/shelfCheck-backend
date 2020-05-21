@@ -13,7 +13,7 @@ start = time.time()
 MAX_THREADS = 16
 LOADING_FROM_SEARCH_WAIT = 5
 
-stock_value = { "likely in stock" : 15, "limited stock" : 10, "out of stock" : 0 }
+stock_value = { "likely in stock" : 25, "limited stock" : 15, "out of stock" : 0 }
 
 lock = RLock()
 
@@ -27,7 +27,8 @@ def thread(params):
 
 	zip_code, item = params
 
-	gather = {}
+	# not sure why this was here
+	# gather = {}
 
 	# Firefox
 	# driver = webdriver.Firefox(options=options)

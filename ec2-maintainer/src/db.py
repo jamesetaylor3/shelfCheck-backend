@@ -1,7 +1,6 @@
 import pymongo
 import datetime
-
-atlas_mondb_endpoint = "mongodb+srv://ec2user:PJHP6MtgxsezJTIG@cluster0-1zkxg.mongodb.net/test?retryWrites=true&w=majority"
+from mongo_config import atlas_mondb_endpoint
 
 def upload_scaped_data(gather):
 	print("uploading data")
