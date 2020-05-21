@@ -1,5 +1,5 @@
 from selenium import webdriver
-from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.firefox.options import Options
 from threading import RLock
 import concurrent.futures
 import itertools
@@ -17,7 +17,7 @@ stock_value = { "likely in stock" : 15, "limited stock" : 10, "out of stock" : 0
 
 lock = RLock()
 
-options = FirefoxOptions()
+options = Options()
 options.add_argument("--headless")
 
 gather = {}
@@ -29,7 +29,11 @@ def thread(params):
 
 	gather = {}
 
-	driver = webdriver.Firefox(options=options)
+	# Firefox
+	# driver = webdriver.Firefox(options=options)
+
+	# Google Chrome
+	driver = webdriver.Chrome(options=options)
 
 	driver.get("https://www.instok.org/search")
 
