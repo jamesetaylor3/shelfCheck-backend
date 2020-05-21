@@ -1,17 +1,9 @@
-# ec2 code for aws
+# ec2 maintainer
 
-### setup script that will set crontab and install all neccesary dependencies
-run `sh setup.py`
+### Set up mongodb credentials in credentials.py
 
-### python dependencies that are installed
-install using pip
-* boto3
-* pymongo
-* selenium
+### Install everything
 
-### other dependencies that are installed
-* firefox browser
-* mozilla geckodriver
+`sh setup.sh`
 
-### other things to note
-* need a `/src/monogo_config.py` file that has string of mongodb's uri
+Should be good to go! crontab will have run.py run periodically
