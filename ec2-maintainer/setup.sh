@@ -1,10 +1,7 @@
-yum install python36
-alternatives --set python /usr/bin/python3.6
+sudo apt-get update && sudo apt-get upgrade -y
 
-cd /tmp/
-curl -O https://bootstrap.pypa.io/get-pip.py
-python3 get-pip.py --user
-pip3 --version
+sudo apt-get install python3.6
+sudo apt-get install python3-pip
 
 
 pip3 install boto3 --user
