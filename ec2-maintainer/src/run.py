@@ -1,18 +1,16 @@
 import pymongo
 import boto3
 import datetime
+import os
 import credentials
 
-BUCKET_NAME = "INVENTORY-DATA-REPOSITORY"
+BUCKET_NAME = "inventory-data-repository"
 
 '''
 Description:
 This will run overnight and move all inventory data from the mongodb
 instance to an aws s3 bucket. It will filter out and delete an inventory
 reporters where attribute crawler = true
-
-Good resources:
-https://clouductivity.com/amazon-web-services/download-upload-files-amazon-s3-python/
 
 Possible change:
 Don't save the csv. Convert to binary and then pass as Body. Might save time
@@ -24,9 +22,9 @@ def getAllData():
 	client = pymongo.MongoClient(credentials.atlas_mondb_endpoint)
 
 	db = client['database0']
-	inventory = db['inventory']
+	inventory_col = db['inventory']
 
-	cursor = inventory.find({})
+	cursor = inventory_col.find({})
 
 	ret = {}
 
@@ -52,6 +50,7 @@ def getAllData():
 					'timestamp': str(report['timestamp'])
 				})
 
+	inventory_col.update({}, {'$unset': {'inventory':1}}, multi=True)
 
 	return ret
 
@@ -78,9 +77,16 @@ def uploadToS3(filename):
 		Key=f'{filename[0:4]}/{filename}',
 		Body=content
 	)
+	content.close()
 
-data = getAllData()
 
-filename = writeToCSV(data)
 
-uploadToS3(filename)
+if __name__ == "__main__":
+
+	data = getAllData()
+
+	filename = writeToCSV(data)
+
+	uploadToS3(filename)
+
+	os.remove(filename)

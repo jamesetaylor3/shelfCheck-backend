@@ -5,5 +5,7 @@ sudo apt-get install python3-pip
 
 pip3 install pymongo --user
 pip3 install boto3 --user
+pip3 install dnspython --user
 
 # crontab the run.py every night at 1:00 AM EST
+crontab src/crontab.txt
