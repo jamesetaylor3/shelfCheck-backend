@@ -1,1 +1,1 @@
-0 3 * * * python3 ~/shelfCheck-backend/ec2-maintainer/src/run.py > ~/shelfCheck-backend/ec2-maintainer/logs.txt
+0 3 * * * python3 ~/shelfCheck-backend/ec2-maintainer/src/run.py > ~/shelfCheck-backend/ec2-maintainer/logs.txt 2>&1
