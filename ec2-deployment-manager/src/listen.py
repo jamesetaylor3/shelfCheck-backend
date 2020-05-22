@@ -1,5 +1,6 @@
 import subprocess
 import time
+from redeploy import redeploy
 
 WAITING = 60
 
