@@ -1,30 +1,17 @@
 import subprocess
 
-REPO_PATH = "~/Documents/shelfCheck/shelfCheck-backend"
+REPO_PATH = "../../../ShelfCheck-Website"
 
 RESET = ['git', 'reset', '--hard', 'HEAD']
-CLONE = ['git', 'clone', '--force']
+CLONE = ['git', 'pull', '--force']
 BUILD = ['sudo', 'npm', 'run', 'build']
-LIST_PROCESSES = ['ps', 'xw']
-KILL = ['kill', '-9', '']
-SERVE = ['nohup', 'serve', '-s', 'build', '&']
+
 
 def RUN(action):
-	return subprocess.check_output(action, cwd=repo_path)
+	return subprocess.check_output(action, cwd=REPO_PATH)
 
 def redeploy():
+	print("updating")
 	RUN(RESET)
 	RUN(CLONE)
 	RUN(BUILD)
-	out = RUN(LIST_PROCESSES)
-
-	processes = out.split('\n')
-
-	for p in processes:
-		if 'serve -s build' in p:
-			pid = p.split()[0]
-			KILL[2] = pid
-
-	RUN(KILL)
-
-	RUN(SERVE)

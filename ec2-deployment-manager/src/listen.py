@@ -2,10 +2,13 @@ import subprocess
 import time
 from redeploy import redeploy
 
-WAITING = 60
+WAITING = 5
+
+REPO_PATH = "../../../ShelfCheck-Website"
 
 def hasChanged():
-	return len(subprocess.check_output(['git', 'diff', 'origin/master'])) != 0
+	subprocess.check_output(['git', 'fetch', 'origin', 'master'], cwd=REPO_PATH)
+	return len(subprocess.check_output(['git', 'diff', 'origin/master'], cwd=REPO_PATH)) != 0
 
 
 if __name__ == '__main__':
