@@ -6,6 +6,10 @@ import credentials
 
 BUCKET_NAME = "inventory-data-repository"
 
+ALL_ITEMS = ["Bread", "Milk", "Eggs", "Bottled Water", "Ground Beef",
+			 "Toilet Paper", "Diapers", "Masks", "Garbage Bags", "Disinfectant Wipes",
+			 "Hand Sanitizer", "Hand Soap", "Paper Towels", "Batteries", "Flashlights"]
+
 '''
 Description:
 This will run overnight and move all inventory data from the mongodb
@@ -50,7 +54,8 @@ def getAllData():
 					'timestamp': str(report['timestamp'])
 				})
 
-	inventory_col.update({}, {'$unset': {'inventory':1}}, multi=True)
+	for item in ALL_ITEMS:
+		inventory_col.update_many({}, {'$unset': {item: 1}}, multi=True)
 
 	return ret
 
