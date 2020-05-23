@@ -1,2 +1,8 @@
 # macos
 .DS_Store
+
+# logging serverside
+logs.txt
+nohup.out
+
+__pycache__
