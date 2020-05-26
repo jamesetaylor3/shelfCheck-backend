@@ -55,7 +55,7 @@ def getAllData():
 				})
 
 	for item in ALL_ITEMS:
-		inventory_col.update_many({}, {'$unset': {item: 1}}, multi=True)
+		inventory_col.update_many({}, {'$unset': {item: 1}})
 
 	return ret
 
