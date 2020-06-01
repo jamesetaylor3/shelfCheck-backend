@@ -12,8 +12,6 @@ def get_weighted_average(inventory):
 
     for i in range(1, len(inventory) + 1):
         minute_diff = (curr_time - inventory[-i]["timestamp"]).total_seconds() / 60.0
-        if minute_diff > 240:
-            break
         weights[-i] = X(minute_diff)
 
     wav = 0
