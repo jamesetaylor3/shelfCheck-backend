@@ -2,8 +2,39 @@
 
 Here are the lambda functions we are running as the shelfCheck backend
 
-Currently this package simply stores the lambda functions source code. However, it will have the ability to test and build lambda functions in the future based on the config files by installing locally the correct dependencies and giving access to keys. As of right now, you must do manual installation.
+In addition to storing lambda functions, you may build them using the build script (usage below). The testing features has not yet been developed.
 
-Each of the handler.py files are missing a constant atlas_mondb_endpoint that specifies the mongodb endpoint. This will be automatically created when building and testing functionality is implemented.
+### Configure the lambda
 
-Each each config.py file, the dependencies list is a list of strings of the pip packages that need to be installed locally for a lambda. uses_mongo (bool) indicates that the function needs access to mongodb, and uses_prop (bool) indicates that it uses the /src/prop.py file
+Every lambda must have a handler.py file with a function lambda_handler. The lambda_handler function is what runs when the lambda is called. Additionally every lambda must have a config.py file that has three variables
+
+```python
+pip_dependencies = []
+confidential_dependencies = []
+shelfcheck_dependencies = []
+```
+
+If the lambda uses any pip packages, add them to the list as a string. They can be imported in the lambda normally. If the lambda uses any keys, add 'mapbox', 'aws' or 'mongo' to the confidential_dependencies list. These keys can be accessed within the lambda as shown below.
+
+```python
+import confidential
+
+confidential.MAPBOX
+confidential.AWS
+confidential.MONGO
+```
+
+Finally if the lambda uses prop.py or shopper.so, add either 'prop' or shopper.so to the shelfcheck_dependencies list. These can be imported as so.
+
+```python
+import prop
+import shopper
+```
+
+### Building a zipped lambda
+
+To build a lambda, run the following command, where LAMBDA-NAME is the name of the lambda you are building
+
+`python3 build.py LAMBDA-NAME`
+
+A zip archive called LAMBDA-NAME-target.zip will be created. This can be directly uploaded to AWS Lambda.
