@@ -7,7 +7,7 @@ import os
 import ast
 import datetime
 import requests
-
+import confidential
 from bson.objectid import ObjectId
 
 client = None
@@ -16,7 +16,7 @@ def lambda_handler(event, context):
     global client
     
     if not client:
-        client = pymongo.MongoClient(atlas_mondb_endpoint)
+        client = pymongo.MongoClient(confidential.MONGO)
         
     body = json.loads(event["body"])
     

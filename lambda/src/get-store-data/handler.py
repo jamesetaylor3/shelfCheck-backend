@@ -9,6 +9,7 @@ import requests
 import math
 import datetime
 import prop
+import confidential
 from bson.objectid import ObjectId
 
 LAMBDA_PARAM = -1 / 10
@@ -23,7 +24,7 @@ def lambda_handler(event, context):
     global client
 
     if not client:
-        client = pymongo.MongoClient(atlas_mondb_endpoint)
+        client = pymongo.MongoClient(confidential.MONGO)
 
     body = json.loads(event["body"])
 

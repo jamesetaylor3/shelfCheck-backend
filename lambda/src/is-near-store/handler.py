@@ -6,7 +6,7 @@ import configparser
 import os
 import ast
 import requests
-
+import confidential
 from bson.son import SON
 
 DIST_THRESHOLD = 1000
@@ -17,7 +17,7 @@ def lambda_handler(event, context):
     global client
 
     if not client:
-        client = pymongo.MongoClient(atlas_mondb_endpoint)
+        client = pymongo.MongoClient(confidential.MONGO)
 
     body = json.loads(event["body"])
 

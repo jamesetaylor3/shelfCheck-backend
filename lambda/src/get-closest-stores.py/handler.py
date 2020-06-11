@@ -8,7 +8,7 @@ import ast
 import requests
 import math
 import prop
-from queue import PriorityQueue
+import confidential
 from bson.son import SON
 
 NUM_STORES_RET = 12
@@ -20,7 +20,7 @@ def lambda_handler(event, context):
 	global client
 
 	if not client:
-		client = pymongo.MongoClient(atlas_mondb_endpoint)
+		client = pymongo.MongoClient(confidential.MONGO)
 
 	body = json.loads(event["body"])
 

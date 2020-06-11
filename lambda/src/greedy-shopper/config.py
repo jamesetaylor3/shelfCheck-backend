@@ -1,4 +1,3 @@
-dependencies = ["requests"]
-
-uses_mapbox = True
-uses_aws = True
+pip_dependencies = ['requests']
+confidential_dependencies = ['aws', 'mapbox']
+shelfcheck_dependencies = ['shopper']

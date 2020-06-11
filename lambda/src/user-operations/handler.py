@@ -7,6 +7,7 @@ import os
 import ast
 import requests
 import datetime
+import confidential
 
 client = None
 
@@ -98,7 +99,7 @@ def lambda_handler(event, context):
 	global client
 
 	if not client:
-		client = pymongo.MongoClient(atlas_mondb_endpoint)
+		client = pymongo.MongoClient(confidential.MONGO)
 
 	db = client['database0']
 	collection = db['users']

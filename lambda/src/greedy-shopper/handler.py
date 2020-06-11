@@ -2,6 +2,7 @@ import shopper
 import requests
 import json
 import time
+import confidential
 from collections import OrderedDict
 
 LAMBDA = 'https://api.shelfcheck.io/v1/get-closest-stores-multiple-items'
@@ -13,7 +14,7 @@ def generate_mapbox_endpoint(coords):
 
 	coords_str = coords_str[:-1]
 
-	return f'https://api.mapbox.com/directions-matrix/v1/mapbox/driving/{coords_str}.json?access_token={MAPBOX}'
+	return f'https://api.mapbox.com/directions-matrix/v1/mapbox/driving/{coords_str}.json?access_token={confidential.MAPBOX}'
 
 def lambda_handler(event, context):
 
@@ -23,7 +24,7 @@ def lambda_handler(event, context):
 	longitude = body['longitude']
 	latitude = body['latitude']
 
-	headers = {'x-api-key': AWS}
+	headers = {'x-api-key': confidential.AWS}
 	body = {
 		'longitude': longitude,
 		'latitude': latitude,
