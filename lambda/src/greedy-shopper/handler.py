@@ -83,8 +83,18 @@ def lambda_handler(event, context):
 	ret['stop_times'] = best_trip.stop_times
 	ret['total_time'] = best_trip.total_time
 
+	ret['found_items'] = set()
+
 	for stop in best_trip.path:
 		ret['stores'].append(lambda_resp[id_to_index[stop]])
+		for each in lambda_resp[id_to_index[stop]]['approximate_quantities']:
+			ret['found_items'].add(each['item_name'])
+
+	ret['not_found_items'] = list(set(user_list).difference(ret['found_items']))
+
+	ret['found_items'] = list(ret['found_items'])
+
+	ret['found_proportion'] = len(ret['found_items']) / len(user_list)
 
 	return {
 		'statusCode': 200,
