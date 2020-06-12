@@ -38,3 +38,17 @@ To build a lambda, run the following command, where LAMBDA-NAME is the name of t
 `python3 build.py LAMBDA-NAME`
 
 A zip archive called LAMBDA-NAME-target.zip will be created. This can be directly uploaded to AWS Lambda.
+
+### Testing a lambda
+
+To test a lambda, run the following command below. It will create a webserver on localhost:8080 in which you can create post requests. However, as of now you must have all of the pip packages you need for the function installed on your local machine. I will try to work on a more containerized solution soon!
+
+`python3 test.py LAMBDA-NAME`
+
+### Working with api keys
+
+At the root level of the lambda directory, there must be a file called confidential.py set with three variables: MONGO, AWS, MAPBOX. These variables must be set to the their respective api keys and be of type string.
+
+### Dealing with greedy-shopper
+
+The build for shopper.so will vary device by device. If you are deploying to lambda, you will need to make sure the src/shopper.so file was built on a linux machine. If you are testing on your local machine, the src/shopper.so file must have been built on our machine or a machine of the same operating system. Peep build instructions and usage for greedy-shopper [here](https://github.com/jamesetaylor3/greedy-shopper).

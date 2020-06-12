@@ -58,7 +58,8 @@ if len(config.confidential_dependencies) != 0:
 
 
 # add the shelfcheck dependencies
-print('including the shelfcheck dependencies...')
+if len(config.shelfcheck_dependencies) != 0:
+	print('including the shelfcheck dependencies...')
 
 for dep in config.shelfcheck_dependencies:
 	if dep == 'prop':
