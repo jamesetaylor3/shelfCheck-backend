@@ -19,15 +19,17 @@ def generate_mapbox_endpoint(coords):
 def lambda_handler(event, context):
 
 	body = json.loads(event['body'])
-
+	
 	user_list = body['items']
-	longitude = body['longitude']
-	latitude = body['latitude']
+	curr_longitude = body['curr_longitude']
+	curr_latitude = body['curr_latitude']
+	home_longitude = body['home_longitude']
+	home_latitude = body['home_latitude']
 
 	headers = {'x-api-key': confidential.AWS}
 	body = {
-		'longitude': longitude,
-		'latitude': latitude,
+		'longitude': curr_longitude,
+		'latitude': curr_latitude,
 		'items': user_list
 	}
 
@@ -56,11 +58,16 @@ def lambda_handler(event, context):
 			'coordinates': each['coordinates']
 		}
 
-	coords['HOME'] = {
+	coords['CURR'] = {
 		'index': len(coords),
-		'coordinates': [longitude, latitude]
+		'coordinates': [curr_longitude, curr_latitude]
 	}
 
+	coords['HOME'] = {
+		'index': len(coords),
+		'coordinates': [home_longitude, home_latitude]
+	}
+	
 	itenerary_candidates = shopper.get_itenerary_candidates(user_list, stores)
 
 	mb_endpoint = generate_mapbox_endpoint(coords)
